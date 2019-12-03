@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/login.css">
+
+    <meta charset="EUC-KR">
+    <title>Login/Registration</title>
+</head>
+<body>
+  <div class="container" id="container">
+  	<div class="form-container sign-up-container">
+  		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
+  			<h1>Registration</h1>
+        <br><br><br>
+  			<input type="text" name="studentID" placeholder="Student ID" />
+  			<input type="password" name="password" placeholder="Password" />
+        <input type="text" name="name" placeholder="Name" />
+        <div id="class_checkbox">
+          <input type="checkbox" id="signup_buyer" name="signup_class" value="buyer">
+          <label for="signup_buyer">Buyer</label>
+          <input type="checkbox" id="signup_seller" name="signup_class" value="seller">
+          <label for="signup_seller">Seller</label>
+        </div>
+        <br>
+  			<button>Sign Up</button>
+  		</form>
+  	</div>
+  	<div class="form-container sign-in-container">
+  		<form name="signin" method="post" action="#" onsubmit="return validate_signin()">
+  			<h1>Sign in</h1>
+        <br><br><br>
+  			<input type="text" name="studentID" placeholder="Student ID" />
+  			<input type="password" name="password" placeholder="Password" />
+        <div id="class_radiobutton">
+          <input type="radio" id="signin_buyer" name="signin_class" value="buyer" checked>
+          <label for="signin_buyer">Buyer</label>
+          <input type="radio" id="signin_seller" name="signin_class" value="seller">
+          <label for="signin_seller">Seller</label>
+          <input type="radio" id="signin_admin" name="signin_class" value="admin">
+          <label for="signin_admin">Admin</label>
+        </div>
+        <br>
+  			<button>Sign In</button>
+  		</form>
+  	</div>
+  	<div class="overlay-container">
+  		<div class="overlay">
+  			<div class="overlay-panel overlay-left">
+  				<h1>Already have an account?</h1>
+  				<p>Login with your account to start your shopping!</p>
+  				<button class="ghost" id="signIn">Sign In</button>
+  			</div>
+  			<div class="overlay-panel overlay-right">
+          <h1>New to <br>Gingko Market?</h1>
+  				<p>Create your Gingko Market account and enjoy your shopping!</p>
+  				<button class="ghost" id="signUp">Sign Up</button>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  <script type="text/javascript" src="js/login.js"></script>
+</body>
+</html>
