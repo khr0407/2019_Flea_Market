@@ -8,7 +8,10 @@
     <title>Main Page</title>
 </head>
 <body>
-  <h1>Hello, World!</h1>
+  <div id="hello">
+    <h1>Hello, World!</h1>
+  </div>
+  <script type="text/javascript" src="main_js.js"></script>
 
 </body>
 </html>
