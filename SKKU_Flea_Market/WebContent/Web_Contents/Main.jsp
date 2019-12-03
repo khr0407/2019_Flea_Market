@@ -3,10 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <link rel="stylesheet" href="/css/main_style.css">
+    <meta charset="EUC-KR">
+    <title>Main Page</title>
 </head>
 <body>
+  <h1>Hello, World!</h1>
 
 </body>
 </html>
