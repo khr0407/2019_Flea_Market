@@ -4,7 +4,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/login.css">
-
     <meta charset="EUC-KR">
     <title>Login/Registration</title>
 </head>
@@ -14,7 +13,11 @@
   		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
   			<h1>Registration</h1>
         <br><br><br>
-  			<input type="text" name="studentID" placeholder="Student ID" />
+  			<input type="text" id="signup_ID" name="studentID" placeholder="Student ID" />
+        <div id="dup">
+          <button id="dup_button">Check</button>
+          <span id="dup_text"> Please check ID availability.</span>
+        </div>
   			<input type="password" name="password" placeholder="Password" />
         <input type="text" name="name" placeholder="Name" />
         <div id="class_checkbox">
