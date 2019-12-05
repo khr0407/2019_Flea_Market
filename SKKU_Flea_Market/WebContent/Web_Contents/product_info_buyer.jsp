@@ -21,8 +21,8 @@
               </p>
     					<hr>
     					<h3>$ Product price</h3>
-    					<button type="button" class="btn btn-danger">Add to wishlist</button>
-              <button type="button" class="btn btn-danger">Buy now</button>
+    					<button type="button" id="wishlist">Add to wishlist</button>
+              <button type="button" id="buynow">Buy now</button>
     				</div>
     			</div>
 
@@ -53,3 +53,5 @@
 
     	</div>
     </div>
+
+    <script src="./js/product_info_buyer.js"></script>
