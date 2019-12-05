@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
-    <link rel="stylesheet" href="./css/product_info_flea.css">
+    <link rel="stylesheet" href="./css/product_info_auction.css">
 
     <div class="container-fluid">
         <div class="content-wrapper">
@@ -52,4 +52,4 @@
     	</div>
     </div>
 
-    <script src="./js/product_info_flea.js"></script>
+    <script src="./js/product_info_auction.js"></script>
