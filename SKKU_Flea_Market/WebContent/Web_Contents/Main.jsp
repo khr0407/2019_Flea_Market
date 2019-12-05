@@ -9,9 +9,9 @@
 </head>
 <body>
   <div id="hello">
-    <h1>Hello, World!</h1>
+    <h1>Bye, World!</h1>
   </div>
-  
+
   <script type="text/javascript" src="js/main_js.js"></script>
 </body>
 </html>
