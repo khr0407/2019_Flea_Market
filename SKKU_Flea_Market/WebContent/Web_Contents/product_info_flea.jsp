@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
-    <link rel="stylesheet" href="./css/product_info_buyer.css">
+    <link rel="stylesheet" href="./css/product_info_flea.css">
 
     <div class="container-fluid">
         <div class="content-wrapper">
@@ -16,6 +16,7 @@
     					<h2>Product title</h2>
               <p>Product category</p>
               <p>Prodcut register date</p>
+              <p>Trading place / By delivery</p>
     					<p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
               </p>
@@ -40,13 +41,11 @@
       <li>An ultra-quiet 140mm double ball-bearing fan delivers great airflow at an very low noise level by varying fan speed in response to temperature</li>
       <li>80Plus certified to deliver 80% efficiency or higher at normal load conditions (20% to 100% load)</li>
       <li>0.99 Active Power Factor Correction provides clean and reliable power</li>
-      <li>Universal AC input from 90~264V — no more hassle of flipping that tiny red switch to select the voltage input!</li>
+      <li>Universal AC input from 90~264V no more hassle of flipping that tiny red switch to select the voltage input!</li>
       <li>Extra long fully-sleeved cables support full tower chassis</li>
-      <li>A three year warranty and lifetime access to Corsair’s legendary technical support and customer service</li>
       <li>Over Current/Voltage/Power Protection, Under Voltage Protection and Short Circuit Protection provide complete component safety</li>
       <li>Dimensions: 150mm(W) x 86mm(H) x 160mm(L)</li>
       <li>MTBF: 100,000 hours</li>
-      <li>Safety Approvals: UL, CUL, CE, CB, FCC Class B, TÜV, CCC, C-tick</li>
     </section>
   </div>
 
@@ -54,4 +53,4 @@
     	</div>
     </div>
 
-    <script src="./js/product_info_buyer.js"></script>
+    <script src="./js/product_info_flea.js"></script>
