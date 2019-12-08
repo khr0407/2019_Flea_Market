@@ -7,7 +7,7 @@ card_flea.addEventListener('click', () => {
 });
 
 card_auction.addEventListener('click', () => {
-	window.location = '../productList_buyer_auction.jsp';
+	window.location = 'productList_buyer_auction.jsp';
 });
 
 /*
