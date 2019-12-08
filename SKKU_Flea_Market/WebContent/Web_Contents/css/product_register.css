@@ -18,7 +18,7 @@ body{
 	font-family: 'Montserrat', sans-serif;
 }
 
-button, input[type="submit"] {
+button, input[type="button"] {
 	border-radius: 20px;
 	border: 1px solid #27C9C6;
 	background-color: #27C9C6;
@@ -33,7 +33,7 @@ button, input[type="submit"] {
 }
 
 .content-wrapper {
-	width: 50%; padding: 3%;
+	max-width: 80%; padding: 3%;
 	background: #fff;
 	margin: 0 auto;
 	margin-top: 25px;
@@ -42,6 +42,39 @@ button, input[type="submit"] {
 	border-radius: 10px;
 }
 
-#flea, #auction{
-	width:130px;
+textarea{
+  width: 99%;
+  height: 300px;
+}
+
+h1{
+  color: #36304a;
+}
+
+input[type="text"], select, input[type="date"]{
+  border: 1px solid #27C9C6;
+  padding:10px;
+  width: 200px;
+}
+p{
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+label{
+  display: inline-block;
+  width: 130px;
+}
+
+#trading_place{
+	margin-top:10px;
+	margin-left:10px;
+}
+.trading_method{
+	display:flex;
+}
+.trading_method p{
+	margin-right:20px;
+}
+.trading_method input[type="radio"]{
+	margin-top:10px; margin-bottom:10px;
 }
