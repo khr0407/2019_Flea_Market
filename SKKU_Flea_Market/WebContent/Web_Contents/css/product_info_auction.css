@@ -1,0 +1,85 @@
+/*from https://bootsnipp.com/snippets/4xOj2*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+html, body{
+  width:100%; height: 100%;
+  margin: 0; padding: 0;
+  background: #27C9C6;
+  background: -webkit-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -o-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -moz-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: linear-gradient(45deg, #68EBB9, #27C9C6);
+}
+
+body{
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #27C9C6;
+	background-color: #27C9C6;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+  margin-top: 2px; margin-bottom: 2px;
+}
+
+img{
+  width: 100%;
+}
+
+.content-wrapper {
+	max-width: 80%; padding: 3%;
+	background: #fff;
+	margin: 0 auto;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	border: 0px;
+	border-radius: 10px;
+}
+
+.item-container{
+  display: flex;
+  padding-left: 0px;
+	padding-right: 0px;
+}
+
+.product_basic_info{
+  width: 65%;
+  text-align: left;
+  margin-left: 0; margin-bottom: 2em;
+  padding: 2em;
+}
+
+
+.product_image{
+  width: 45%;
+  padding: 2em;
+  margin-top: 2em; margin-bottom: 2em;
+}
+#views{
+  float: right;
+  font-size: 16px;
+  color: #27C9C6;
+}
+
+#bidPrice{
+  border: 1px solid #27C9C6;
+  padding:10px;
+  margin-bottom: 10px;
+}
+
+#bidAlertText{
+  color: red;
+  margin-left: 20px;
+  font-size: 13px;
+}
