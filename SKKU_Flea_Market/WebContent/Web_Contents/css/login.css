@@ -1,3 +1,4 @@
+/*from https://codepen.io/FlorinPop17/pen/vPKWjd*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -5,7 +6,7 @@
 }
 
 body {
-	background: #f6f5f7;
+	background: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
