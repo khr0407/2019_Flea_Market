@@ -16,14 +16,14 @@
               </h2><span id="views">00 views</span>
     					<h2>Product title</h2>
               <h3>Time remaining</h3>
-              <h3>$ <span id="currentPrice">80000</span> </h3>
+              <h3><span id="currentPrice">80000</span>&#8361; </h3>
               <p>Seller: sellerID</p>
               <p>phone number</p>
               <p>Product category</p>
               <p>Prodcut register date</p>
               <p>Trading place / By delivery</p>
     					<hr>
-              <input type="text" id="bidPrice" placeholder="Enter bidding price"> <span id="bidAlertText"></span>
+              <input type="text" id="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
               <br>
               <button type="button" id="bid">Bid</button>
               <button type="button" id="wishlist">Add to wishlist</button>

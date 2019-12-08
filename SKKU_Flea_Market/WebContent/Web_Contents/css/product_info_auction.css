@@ -6,11 +6,10 @@ html, body{
   width:100%; height: 100%;
   margin: 0; padding: 0;
   background: #27C9C6;
- background: -webkit-linear-gradient(45deg, #68EBB9, #27C9C6);
- background: -o-linear-gradient(45deg, #68EBB9, #27C9C6);
- background: -moz-linear-gradient(45deg, #68EBB9, #27C9C6);
- background: linear-gradient(45deg, #68EBB9, #27C9C6);
-
+  background: -webkit-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -o-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -moz-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: linear-gradient(45deg, #68EBB9, #27C9C6);
 }
 
 body{
@@ -82,4 +81,5 @@ img{
 #bidAlertText{
   color: red;
   margin-left: 20px;
+  font-size: 13px;
 }

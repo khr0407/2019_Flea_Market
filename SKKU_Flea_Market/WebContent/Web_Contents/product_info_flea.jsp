@@ -20,7 +20,7 @@
               <p>Product category</p>
               <p>Prodcut register date</p>
               <p>Trading place / By delivery</p>
-    					<h3>$ Product price</h3>
+    					<h3>Product price &#8361;</h3>
               <hr>
     					<button type="button" id="wishlist">Add to wishlist</button>
               <button type="button" id="buynow">Buy now</button>
