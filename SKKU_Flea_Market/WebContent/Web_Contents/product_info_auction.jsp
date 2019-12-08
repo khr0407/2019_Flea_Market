@@ -15,15 +15,18 @@
     				<div class="product_basic_info">
               </h2><span id="views">00 views</span>
     					<h2>Product title</h2>
+              <h3>Time remaining</h3>
+              <h3>$ <span id="currentPrice">80000</span> </h3>
               <p>Seller: sellerID</p>
               <p>phone number</p>
               <p>Product category</p>
               <p>Prodcut register date</p>
               <p>Trading place / By delivery</p>
     					<hr>
-    					<h3>$ Product price</h3>
-    					<button type="button" id="wishlist">Add to wishlist</button>
-              <button type="button" id="buynow">Buy now</button>
+              <input type="text" id="bidPrice" placeholder="Enter bidding price"> <span id="bidAlertText"></span>
+              <br>
+              <button type="button" id="bid">Bid</button>
+              <button type="button" id="wishlist">Add to wishlist</button>
     				</div>
     			</div>
 <hr>
