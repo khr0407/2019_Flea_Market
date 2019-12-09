@@ -20,7 +20,7 @@ body{
 	font-family: 'Montserrat', sans-serif;
 }
 
-button {
+button, input[type="button"] {
 	border-radius: 20px;
 	border: 1px solid #27C9C6;
 	background-color: #27C9C6;
@@ -35,11 +35,22 @@ button {
 }
 
 .content-wrapper {
-	max-width: 80%; padding: 3%;
+	max-width: 450px; padding: 3%;
 	background: #fff;
 	margin: 0 auto;
 	margin-top: 25px;
 	margin-bottom: 10px;
 	border: 0px;
 	border-radius: 10px;
+}
+
+input[type="text"], select, input[type="date"]{
+  border: 1px solid #27C9C6;
+  padding:10px;
+  width: 200px;
+}
+
+label{
+  display: inline-block;
+  width: 130px;
 }
