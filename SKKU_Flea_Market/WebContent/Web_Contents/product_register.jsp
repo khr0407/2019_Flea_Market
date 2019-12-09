@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Product register</title>
+<title>Product Register</title>
 <link rel="stylesheet" href="./css/product_register.css">
 </head>
 <body> 
   <div class="content-wrapper">
-    <h1>Product Resigster</h1> <hr>
+    <h1>Product Register</h1> <hr>
       <h3>Please select the sell type.</h3>
       <input type="radio" name="sell_type" id="sell_type_flea" value="flea"> Flea
       <input type="radio" name="sell_type" id="sell_type_auction" value="auction"> Auction 
