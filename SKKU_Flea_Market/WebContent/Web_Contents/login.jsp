@@ -26,6 +26,20 @@ catch(Exception e){ out.println("Something went wrong !! Please try again");
 } 
 
 %>
+
+<header>
+    	<div class="wrapper">
+    		<h1>Gingko Market</h1>
+    			<ul class="menu">
+    				<li><a href="#">Home</a></li>
+    				<li><a href="#">About</a></li>
+    				<li><a href="#">Board</a></li>
+    				<li><a href="#">Reference</a></li>
+    				<li><a href="#">Contact</a></li>
+    			</ul>
+    	</div>
+    </header>
+    
   <div class="container" id="container">
   	<div class="form-container sign-up-container">
   		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">

@@ -8,6 +8,18 @@
 <link rel="stylesheet" href="./css/product_register.css">
 </head>
 <body> 
+<header>
+    	<div class="wrapper">
+    		<h1>Gingko Market</h1>
+    			<ul class="menu">
+    				<li><a href="#">Home</a></li>
+    				<li><a href="#">About</a></li>
+    				<li><a href="#">Board</a></li>
+    				<li><a href="#">Reference</a></li>
+    				<li><a href="#">Contact</a></li>
+    			</ul>
+    	</div>
+    </header>
   <div class="content-wrapper">
     <h1>Product Register</h1> <hr>
       <h3>Please select the sell type.</h3>
