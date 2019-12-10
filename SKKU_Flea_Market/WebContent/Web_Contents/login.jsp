@@ -8,7 +8,7 @@
     <title>Login/Registration</title>
 </head>
 <body>
-<%@ page import ="java.sql.*" %>
+<%@ page import ="java.sql.*"%>
 <%
 try{
 Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
@@ -17,8 +17,10 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_
 PreparedStatement pst = conn.prepareStatement("Select sid, pw, name from users");
 
 ResultSet rs = pst.executeQuery();
+/*
 if (rs.next()) out.println(rs.getString("sid") + " " + rs.getString("name"));
 else out.println("Query failed...");
+*/
 }
 catch(Exception e){ out.println("Something went wrong !! Please try again");
 } 

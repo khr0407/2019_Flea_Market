@@ -42,7 +42,7 @@ img{
 	max-width: 80%; padding: 3%;
 	background: #fff;
 	margin: 0 auto;
-	margin-top: 25px;
+	margin-top: 100px;
 	margin-bottom: 10px;
 	border: 0px;
 	border-radius: 10px;
@@ -71,4 +71,18 @@ img{
   float: right;
   font-size: 16px;
   color: #27C9C6;
+}
+
+
+header{
+	height:60px; background-color:#36304a; border: 1px solid #36304a;
+	position:fixed; width:100%; z-index:9999; top:0; left:0; padding:10px;
+	color:white;
+}
+
+.wrapper{width:1170px; margin:0 auto; display:flex;}
+.menu li{float:left;list-style:none;}
+.menu a{
+	text-decoration:none;line-height:60px; color:black; padding: 0 15px; display: block;
+	color:white;
 }
