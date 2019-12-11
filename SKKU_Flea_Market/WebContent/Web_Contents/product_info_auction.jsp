@@ -1,6 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
+<%@ page import ="java.sql.*"%>
+<%
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+try{
+	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+	
+	pst = conn.prepareStatement("Select * from products where pid=1 and type='auction'");
+	rs = pst.executeQuery();
+	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
+} catch(Exception e){ 
+	%>alert("Something went wrong !! Please try again");<%
+} 
+
+pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid=1");
+pst.executeUpdate();
+			
+boolean bidPossible=false;
+request.setCharacterEncoding("euc-kr");
+%>
+
+<script>
+var bidPossible = false;
+function addToWishlist(){
+	<% 
+	String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+	String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+	try{
+		pst = conn.prepareStatement("insert into wish_list values (2017314888,1,'"+inDate+inTime+"',0)");
+		pst.executeUpdate();
+		%> alert("The product is added to wishlist."); <%
+	} catch(Exception e){
+		%> alert("This product is already in the wish list.") <%
+	}
+	%>
+}
+
+function checkBidPrice(obj){
+	  var price = currentPrice.innerHTML; price *= 1;
+	  var myprice = bidPrice.value; myprice *= 1;
+	  var isNumber = !isNaN(myprice);
+	  if(!isNumber){
+		  bidPossible=false; <% bidPossible=false; %>
+		  bidAlertText.innerHTML = "Enter the number.";
+	  }else if(price >= myprice){
+		  bidPossible = false; <% bidPossible=false; %>
+		  bidAlertText.innerHTML = "Bid price must larger than current price.";
+	  } else{
+		  bidPossible = true; <% bidPossible=true; %>
+		  bidAlertText.innerHTML = "";
+	  }
+
+	}
+
+function bid(){
+	alert(bidPossible);
+}
+</script>
+
     <link rel="stylesheet" href="./css/product_info_auction.css">
 <header>
     	<div class="wrapper">
@@ -11,6 +70,7 @@
     				<li><a href="#">Board</a></li>
     				<li><a href="#">Reference</a></li>
     				<li><a href="#">Contact</a></li>
+    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li>
     			</ul>
     	</div>
     </header>
@@ -20,27 +80,29 @@
     		<div class="item-container">
     				<div class="product_image">
     						<center>
-    							<img id="item-display" src="./image_src/product.png" alt=""></img>
+    							<img id="item-display" src="<%=rs.getString("url") %>" alt=""></img>
     						</center>
     				</div>
 
-    				<div class="product_basic_info">
-              </h2><span id="views">00 views</span>
-    					<h2>Product title</h2>
+			<div class="product_basic_info">
+              <span id="views"><%=rs.getInt("hits") %> views</span>
+    		  <h2><%=rs.getString("name") %></h2>
               <h3>Time remaining</h3>
-              <h3><span id="currentPrice">80000</span>&#8361; </h3>
-              <p>Seller: sellerID</p>
+              <h3><span id="currentPrice"><%=rs.getInt("price") %></span>&#8361; </h3>
+              <p>Seller: <%=rs.getString("sid") %></p>
               <p>phone number</p>
-              <p>Product category</p>
-              <p>Prodcut register date</p>
-              <p>Trading place / By delivery</p>
-    					<hr>
-              <input type="text" id="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
+              <p><%=rs.getString("category") %></p>
+              <p>Registered time: <%=rs.getDate("registered_time")+" "+rs.getTime("registered_time") %></p>
+              <p>Trading place:  <%=rs.getString("trading_place") %></p>
+              <hr>
+              <form action="product_info_auction.jsp" method="get">
+              <input type="text" id="bidPrice" name="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
               <br>
-              <button type="button" id="bid">Bid</button>
-              <button type="button" id="wishlist">Add to wishlist</button>
-    				</div>
-    			</div>
+              <button type="submit" id="bid" onclick="bid();">Bid</button>
+              <button type="button" id="wishlist" onclick="addToWishlist();">Add to wishlist</button>
+              </form>
+    		</div>
+    		</div>
 <hr>
 
   <div class="product_detil">
@@ -66,5 +128,24 @@
 
     	</div>
     </div>
-
-    <script src="./js/product_info_auction.js"></script>
+<%
+String bidPrice = request.getParameter("bidPrice");
+if(bidPrice != null){
+	try{
+		int price = Integer.parseInt(bidPrice);
+		if(price <= rs.getInt("price")){
+			%> <script>alert("Bid failed. Please enter higher price than current price.")</script><%
+		} else{
+			%> <script>alert("Bid success!")</script><%
+			pst = conn.prepareStatement("update products set price="+price+" where pid=1");
+			pst.executeUpdate();
+			%><script> window.location.href = "product_info_auction.jsp";</script><%
+		}
+	} catch(Exception e){
+		%> <script>
+		alert("Bid failed. Please make sure the input is correct.");
+		window.location.href = "product_info_auction.jsp";
+		</script><%
+	}	
+}
+%>
