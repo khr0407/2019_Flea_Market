@@ -54,10 +54,6 @@ function checkBidPrice(obj){
 	  }
 
 	}
-
-function bid(){
-	alert(bidPossible);
-}
 </script>
 
     <link rel="stylesheet" href="./css/product_info_auction.css">
@@ -95,10 +91,11 @@ function bid(){
               <p>Registered time: <%=rs.getDate("registered_time")+" "+rs.getTime("registered_time") %></p>
               <p>Trading place:  <%=rs.getString("trading_place") %></p>
               <hr>
+              
               <form action="product_info_auction.jsp" method="get">
               <input type="text" id="bidPrice" name="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
               <br>
-              <button type="submit" id="bid" onclick="bid();">Bid</button>
+              <button type="submit" id="bid">Bid</button>
               <button type="button" id="wishlist" onclick="addToWishlist();">Add to wishlist</button>
               </form>
     		</div>
