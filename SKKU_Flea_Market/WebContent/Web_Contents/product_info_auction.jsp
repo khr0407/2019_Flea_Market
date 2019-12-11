@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
+<%@ page import ="java.sql.*"%>
+<%
+ResultSet rs = null;
+try{
+Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+
+PreparedStatement pst = conn.prepareStatement("Select * from products where pid=1 and type='auction'");
+
+rs = pst.executeQuery();
+
+if (!rs.next()) {%> 
+	<script>alert("Database connection failed. Please try again.")</script>
+<%}
+
+}
+catch(Exception e){ %>alert("Something went wrong !! Please try again");<%
+} 
+
+%>
+
     <link rel="stylesheet" href="./css/product_info_auction.css">
 <header>
     	<div class="wrapper">
@@ -20,21 +41,21 @@
     		<div class="item-container">
     				<div class="product_image">
     						<center>
-    							<img id="item-display" src="./image_src/product.png" alt=""></img>
+    							<img id="item-display" src="<%=rs.getString("url") %>" alt=""></img>
     						</center>
     				</div>
 
     				<div class="product_basic_info">
-              </h2><span id="views">00 views</span>
-    					<h2>Product title</h2>
+              <span id="views"><%=rs.getInt("hits") %> views</span>
+    		  <h2><%=rs.getString("name") %></h2>
               <h3>Time remaining</h3>
-              <h3><span id="currentPrice">80000</span>&#8361; </h3>
-              <p>Seller: sellerID</p>
+              <h3><span id="currentPrice"><%=rs.getInt("price") %></span>&#8361; </h3>
+              <p>Seller: <%=rs.getString("sid") %></p>
               <p>phone number</p>
-              <p>Product category</p>
-              <p>Prodcut register date</p>
-              <p>Trading place / By delivery</p>
-    					<hr>
+              <p><%=rs.getString("category") %></p>
+              <p>Registered date: <%=rs.getDate("registered_time") %></p>
+              <p>Trading place: <%=rs.getString("trading_place") %></p>
+              <hr>
               <input type="text" id="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
               <br>
               <button type="button" id="bid">Bid</button>
