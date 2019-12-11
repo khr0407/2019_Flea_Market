@@ -8,6 +8,22 @@
     <title>Login/Registration</title>
 </head>
 <body>
+<%@ page import ="java.sql.*" %>
+<%
+try{
+Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","duswp05!3");
+
+PreparedStatement pst = conn.prepareStatement("Select sid, pw, name from users");
+ResultSet rs = pst.executeQuery();
+if (rs.next()) out.println(rs.getString("sid") + " " + rs.getString("name"));
+else out.println("Query failed...");
+}
+catch(Exception e){ out.println("Something went wrong !! Please try again");
+} 
+
+%>
+
   <div class="container" id="container">
   	<div class="form-container sign-up-container">
   		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
