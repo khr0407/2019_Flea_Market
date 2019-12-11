@@ -2,7 +2,7 @@ const wishlistButton = document.getElementById('wishlist');
 const buynowButton = document.getElementById('buynow');
 
 buynowButton.addEventListener('click',()=> {
-  window.location.href="Main.jsp"; // 나중에 상품 구매 페이지로 이동하기
+	window.open("move_to_shopping_list_popup.html","a","width=400,height=150,left=200,top=100");
 });
 
 wishlistButton.addEventListener('click',()=>{

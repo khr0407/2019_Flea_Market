@@ -83,3 +83,17 @@ img{
   margin-left: 20px;
   font-size: 13px;
 }
+
+/*menu bar*/
+header{
+	height:60px; background-color:#36304a; border: 1px solid #36304a;
+	width:100%; z-index:9999; top:0; left:0; padding:10px;
+	color:white;
+}
+
+.wrapper{width:1170px; margin:0 auto; display:flex;}
+.menu li{float:left;list-style:none;}
+.menu a{
+	text-decoration:none;line-height:60px; color:black; padding: 0 15px; display: block;
+	color:white;
+}
