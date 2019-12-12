@@ -2,6 +2,43 @@
     pageEncoding="EUC-KR"%>
 
     <link rel="stylesheet" href="./css/product_info_flea.css">
+
+<%@ page import ="java.sql.*"%>
+<%
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+try{
+	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+	
+	pst = conn.prepareStatement("Select * from products where pid=0 and type='flea'");
+	rs = pst.executeQuery();
+	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
+} catch(Exception e){ 
+	%>alert("Something went wrong !! Please try again");<%
+} 
+
+pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid=0");
+pst.executeUpdate();
+%>
+
+<script>
+function buyNow(){
+	window.open("move_to_shopping_list_popup.html","a","width=400,height=150,left=600,top=300");
+}
+function addToWishlist(){
+	<% 
+	String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+	String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+	try{
+		pst = conn.prepareStatement("insert into wish_list values (2017314888,0,'"+inDate+inTime+"',0)");
+		pst.executeUpdate();
+		%> alert("The product is added to wishlist."); <%
+	} catch(Exception e){
+		%> alert("This product is already in the wish list.") <%
+	}
+	%>
+}
+</script>
     <header>
     	<div class="wrapper">
     		<h1>Gingko Market</h1>
@@ -11,6 +48,7 @@
     				<li><a href="#">Board</a></li>
     				<li><a href="#">Reference</a></li>
     				<li><a href="#">Contact</a></li>
+    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li>
     			</ul>
     	</div>
     </header>
@@ -20,22 +58,22 @@
     		<div class="item-container">
     				<div class="product_image">
     						<center>
-    							<img id="item-display" src="./image_src/product.png" alt=""></img>
+    							<img id="item-display" src="<%=rs.getString("url") %>" alt=""></img>
     						</center>
     				</div>
 
-    				<div class="product_basic_info">
-              </h2><span id="views">00 views</span>
-              <h2>Product title</h2>
-              <p>Seller: sellerID</p>
+		<div class="product_basic_info">
+              <span id="views"><%=rs.getInt("hits") %> views</span>
+              <h2><%=rs.getString("name") %></h2>
+              <p>Seller ID: <%=rs.getString("sid") %></p>
               <p>phone number</p>
-              <p>Product category</p>
-              <p>Prodcut register date</p>
-              <p>Trading place / By delivery</p>
-    					<h3>Product price &#8361;</h3>
+              <p><%=rs.getString("category") %></p>
+              <p>Registered time: <%=rs.getDate("registered_time")+" "+rs.getTime("registered_time") %></p>
+              <p>Trading place: <%=rs.getString("trading_place") %></p>
+    		  <h3><%=rs.getInt("price") %> &#8361;</h3>
               <hr>
-              <button type="button" id="wishlist">Add to wishlist</button>
-              <button type="button" id="buynow">Buy now</button>
+              <button type="button" onclick="addToWishlist();">Add to wishlist</button>
+              <button type="button" onclick="buyNow();">Buy now</button>
     				</div>
     			</div>
 <hr>
@@ -63,5 +101,3 @@
 
     	</div>
     </div>
-
-    <script src="./js/product_info_flea.js"></script>

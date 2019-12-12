@@ -65,3 +65,11 @@ search_button.addEventListener('click', () => {
 	  /*데이터베이스에서 검색*/
   }
 });
+/*
+$(document).ready(function(){
+	$(.'item').click(function(){
+		alert("Clicked!");
+	});
+});
+
+*/

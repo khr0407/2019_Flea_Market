@@ -8,6 +8,8 @@
     <title>productList_buyer_flea</title>
 </head>
 <body>
+
+<%@ page import ="java.sql.*" %>
 <header>
     	<div class="wrapper">
     		<h1>Gingko Market</h1>
@@ -85,51 +87,43 @@
 							</tr>
 						</thead>
 						<tbody>
-								<tr>
-									<td class="column1">iPhone X 64Gb Grey</td>
-									<td class="column2">Electronics</td>
-									<td class="column3">\99900</td>
-									<td class="column4">SKKU Domitory Shin-gwan-A</td>
-									<td class="column5">On Sale</td>
-									<td class="column6">Hera</td>
-									<td class="column7">010-1234-5678</td>
-								</tr>
-								<tr>
-                  <td class="column1">iPhone X 64Gb Grey</td>
-									<td class="column2">Electronics</td>
-									<td class="column3">\99900</td>
-									<td class="column4">SKKU Domitory Shin-gwan-A</td>
-									<td class="column5">On Sale</td>
-									<td class="column6">Hera</td>
-									<td class="column7">010-1234-5678</td>
-								</tr>
-								<tr>
-                  <td class="column1">iPhone X 64Gb Grey</td>
-									<td class="column2">Electronics</td>
-									<td class="column3">\99900</td>
-									<td class="column4">SKKU Domitory Shin-gwan-A</td>
-									<td class="column5">On Sale</td>
-									<td class="column6">Hera</td>
-									<td class="column7">010-1234-5678</td>
-								</tr>
-                <tr>
-                  <td class="column1">iPhone X 64Gb Grey</td>
-									<td class="column2">Electronics</td>
-									<td class="column3">\99900</td>
-									<td class="column4">SKKU Domitory Shin-gwan-A</td>
-									<td class="column5">On Sale</td>
-									<td class="column6">Hera</td>
-									<td class="column7">010-1234-5678</td>
-                </tr>
-                <tr>
-                  <td class="column1">iPhone X 64Gb Grey</td>
-									<td class="column2">Electronics</td>
-									<td class="column3">\99900</td>
-									<td class="column4">SKKU Domitory Shin-gwan-A</td>
-									<td class="column5">On Sale</td>
-									<td class="column6">Hera</td>
-									<td class="column7">010-1234-5678</td>
-                </tr>
+						<%
+							String query = "select * from 2019_flea_market.products where type='Flea' and status='On Sale'";
+							try{
+								Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+								Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+
+								PreparedStatement pst = conn.prepareStatement(query);
+							
+								ResultSet rs = pst.executeQuery();
+								
+								if (rs.next())
+								{
+									do
+									{
+									%>
+										<tr class="item">
+											<td class="column1"><%=rs.getString("name") %></td>
+											<td class="column2"><%=rs.getString("category") %></td>
+											<td class="column3"><%=rs.getString("price") %>&#8361;</td>
+											<td class="column4"><%=rs.getString("trading_place") %></td>
+											<td class="column5"><%=rs.getString("status") %></td>
+											<td class="column6"><%=rs.getString("sid") %></td>
+											<td class="column7"><%=rs.getString("contacts") %></td>
+										</tr>
+									<%
+									}while(rs.next());
+								}
+								else
+								{
+									out.println("Query failed...");
+								}
+							}
+							catch(Exception e){ out.println("Something went wrong !! Please try again");
+							} 
+						
+						%>
+
 						</tbody>
 					</table>
 				</div>

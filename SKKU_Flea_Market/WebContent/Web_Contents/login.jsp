@@ -8,6 +8,7 @@
     <title>Login/Registration</title>
 </head>
 <body>
+<<<<<<< HEAD
 
 <%@ page import ="java.sql.*" %>
 <%
@@ -24,6 +25,9 @@ catch(Exception e){ out.println("Something went wrong !! Please try again");
 } 
 %>
 
+=======
+    
+>>>>>>> upstream/master
   <div class="container" id="container">
   	<div class="form-container sign-up-container">
   		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
