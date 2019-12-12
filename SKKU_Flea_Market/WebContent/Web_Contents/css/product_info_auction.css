@@ -86,7 +86,7 @@ img{
 
 /*menu bar*/
 header{
-	height:60px; background-color:#36304a; border: 1px solid #36304a;
+	height:80px; background-color:#36304a; border: 1px solid #36304a;
 	width:100%; z-index:9999; top:0; left:0; padding:10px;
 	color:white;
 }
@@ -97,3 +97,5 @@ header{
 	text-decoration:none;line-height:60px; color:black; padding: 0 15px; display: block;
 	color:white;
 }
+.menu #moveToLogin{position:absolute; right:50px; color:white;}
+.menu #loginId{position:absolute; right:140px; color:#27C9C6; text-decoration:none;line-height:60px; display: block; font-size:15px;}

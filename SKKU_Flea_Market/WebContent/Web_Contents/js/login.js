@@ -73,31 +73,3 @@ function validate_signup(){
 	return false;
 
 }
-
-function validate_signin(){
-	var studentID = document.forms['signin']['studentID'].value;
-	var password = document.forms['signin']['password'].value;
-	var radiobutton = document.forms['signin']['signin_class'];
-	var signin_class = ""
-
-	// radiobutton 값 가져오기
-	var radiobutton = document.getElementById("class_radiobutton");
-	var radiobutton_elements = radiobutton.getElementsByTagName('input');
-	for(var i=0; i<3; i++)
-	{
-		if(radiobutton_elements[i].checked)
-			signin_class = radiobutton_elements[i].value;
-	}
-
-	// 빈칸 확인
-	if(studentID=="")
-		alert("Please enter your Student ID!");
-	else if(password=="")
-		alert("Please enter your password!");
-	else
-	{
-		// 데이터베이스 정보와 비교
-		return true;
-	}
-	return false;
-}
