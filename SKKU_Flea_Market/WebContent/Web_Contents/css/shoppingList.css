@@ -1,0 +1,269 @@
+/*https://codepen.io/alex_rodrigues/pen/ABGdg*/
+
+@import "compass/css3";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
+@import "compass/reset";
+
+*
+{
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  box-sizing:border-box;
+}
+
+body
+{
+  background: #27C9C6;
+  background: -webkit-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -o-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: -moz-linear-gradient(45deg, #68EBB9, #27C9C6);
+  background: linear-gradient(45deg, #68EBB9, #27C9C6);
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Droid Serif', serif;
+}
+
+ img
+ {
+   max-width:100%;
+ }
+
+.cf:before,.cf:after
+{
+  content: " ";
+  display: table;
+}
+
+.cf:after
+{
+  clear: both;
+}
+
+.cf
+{
+  *zoom: 1;
+}
+
+.wrap
+{
+  background: white;
+  width: 75%;
+  max-width: 960px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 5em;
+  padding: 0px 10px 20px 10px;
+}
+
+.projTitle
+{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  padding: 1em 0;
+  border-bottom: 1px solid #dadada;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+// CART HEADER
+#heading
+{
+  padding: 1em 0;
+  border-bottom: 1px solid #D0D0D0;
+}
+
+.heading > h1
+{
+   font-family: 'Droid Serif', serif;
+   font-size: 2em;
+   float: left;
+   margin-top: 0px;
+   margin-left: 20px;
+}
+
+.heading > a.continue:link, .heading > a.continue:visited
+{
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;;
+  letter-spacing: -.015em;
+  font-size: .75em;
+  padding: 1em;
+  color: #fff;
+  background: #36304a;
+  font-weight: bold;
+  border-radius: 50px;
+  float: right;
+  text-align: right;
+  /*@include transition(all, .25s, linear);*/
+}
+
+.heading > a.continue:after
+{
+  content: "\276f";
+  padding: .5em;
+  position: relative;
+  right:0;
+  /*@include transition(all, .15s, linear);*/
+}
+
+.heading > a.continue:hover, .heading > a.continue:focus, .heading > a.continue:active
+{
+  background: #AFA9C2;
+}
+
+// CART Items
+.cart
+{
+  padding: 1em 0 ;
+}
+
+.items
+{
+  display: block;
+  width: 100%;
+  vertical-align: middle;
+  padding: 1.5em;
+  border-bottom: 1px solid #fafafa;
+}
+
+.even
+{
+  background: #fafafa;
+}
+
+
+.infoWrap
+{
+  display: table;
+  width: 100%;
+}
+
+.cartSection
+{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.itemNumber
+{
+  font-size: .75em;
+  color: #777;
+  margin-bottom: .5em;
+}
+
+h3
+{
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .025em;
+}
+
+p
+{
+  display: inline-block;
+  font-size: .85em;
+
+  color: #777777;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.stockStatus
+{
+  color: #82CA9C;
+  font-weight: bold;
+  margin-top: -7px;
+  text-transform: uppercase;
+}
+
+.out
+{
+  color: #F69679;
+}
+
+.itemImg
+{
+  width: 8em;
+  float: left;
+  display: inline;
+  padding-right: 1em;
+}
+
+.prodTotal
+{
+    text-align: center;
+}
+
+.prodTotal > p
+{
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+a.remove {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;;
+  color: #ffffff;
+  font-weight: bold;
+  background: #e0e0e0;
+  padding: .5em;
+  font-size: .75em;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: .85;
+  /*@include transition(all, .25s, linear);*/
+}
+
+a.remove:hover
+{
+  background: #f30;
+}
+
+/* TOTAL AND CHECKOUT  */
+
+
+.subtotal
+{
+  float: right;
+  width: 80%;
+}
+
+.totalRow
+{
+  list-style: none;
+  padding: .5em;
+  text-align: right;
+}
+
+.final
+{
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+span
+{
+  display: inline-block;
+  padding: 0 0 0 1em;
+  text-align: right;
+}
+
+.label
+{
+  font-family: 'Montserrat', sans-serif;
+  font-size: .85em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.value
+{
+  letter-spacing: -.025em;
+  width: 35%;
+  margin-right: 15px;
+}
