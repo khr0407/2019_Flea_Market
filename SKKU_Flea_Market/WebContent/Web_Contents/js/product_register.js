@@ -19,7 +19,3 @@ function displayAuction(){
 	document.getElementById('price').innerHTML = "Auction start price";
 	document.getElementById('date').style.display="block";
 }
-
-function Submit(){
-	alert("submit");
-}

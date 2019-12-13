@@ -5,36 +5,53 @@
 
 <%@ page import ="java.sql.*"%>
 <%
+request.setCharacterEncoding("euc-kr");
+
+//get sid, pid
+int sid = -1, pid = -1;
+String sidString = request.getParameter("sid"); String pidString = request.getParameter("pid");
+
+if(sidString != null) sid = Integer.parseInt(sidString);
+//else sid=2017314888; 
+
+if(pidString != null) pid = Integer.parseInt(pidString);
+else pid=0;
+
+//MySQL database connection
 ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
 try{
-	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+	Class.forName("com.mysql.cj.jdbc.Driver");
 	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	
-	pst = conn.prepareStatement("Select * from products where pid=0 and type='flea'");
+	pst = conn.prepareStatement("Select * from products where pid="+pid+" and type='flea'");
 	rs = pst.executeQuery();
 	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
 } catch(Exception e){ 
 	%>alert("Something went wrong !! Please try again");<%
 } 
 
-pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid=0");
+pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid="+pid);
 pst.executeUpdate();
+
 %>
 
 <script>
 function buyNow(){
-	window.open("move_to_shopping_list_popup.html","a","width=400,height=150,left=600,top=300");
+	<% if(sid==-1) { %> alert("Please sign in first"); <%}
+	else {%> alert("This product is added to shopping list") <%}%>
 }
 function addToWishlist(){
-	<% 
+	<% if(sid==-1) { %> alert("Please sign in first");<%}
+	else{
 	String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
 	String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
 	try{
-		pst = conn.prepareStatement("insert into wish_list values (2017314888,0,'"+inDate+inTime+"',0)");
+		pst = conn.prepareStatement("insert into wish_list values ("+sid+","+pid+",'"+inDate+inTime+"',0)");
 		pst.executeUpdate();
 		%> alert("The product is added to wishlist."); <%
 	} catch(Exception e){
 		%> alert("This product is already in the wish list.") <%
+	}
 	}
 	%>
 }
@@ -43,12 +60,17 @@ function addToWishlist(){
     	<div class="wrapper">
     		<h1>Gingko Market</h1>
     			<ul class="menu">
-    				<li><a href="#">Home</a></li>
-    				<li><a href="#">About</a></li>
-    				<li><a href="#">Board</a></li>
-    				<li><a href="#">Reference</a></li>
-    				<li><a href="#">Contact</a></li>
-    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li>
+    				<li><a href="<%="main.jsp?sid="+sid%>">Home</a></li>
+    				<li><a href="<%="productList_intro.jsp?sid="+sid%>">Products for buyer</a></li>
+    				<li><a href="productList_seller.jsp">Products for seller</a></li>
+    				<li><a href="<%="product_info_flea.jsp?sid="+sid %>">Flea</a></li>
+    				<li><a href="<%="product_info_auction.jsp?sid="+sid %>">Auction</a></li>
+    				<li><a href="<%="product_register.jsp?sid="+sid %>">Product register</a></li>
+    				<%if(sid != -1){ %>
+    				<li id=loginId><%=sid %></li>
+    				<li id="moveToLogin"><a href="product_info_flea.jsp">Log out</a></li>
+    				<%} else { %>
+    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
     			</ul>
     	</div>
     </header>
@@ -66,7 +88,7 @@ function addToWishlist(){
               <span id="views"><%=rs.getInt("hits") %> views</span>
               <h2><%=rs.getString("name") %></h2>
               <p>Seller ID: <%=rs.getString("sid") %></p>
-              <p>phone number</p>
+              <p>Phone number: <%=rs.getString("contacts") %></p>
               <p><%=rs.getString("category") %></p>
               <p>Registered time: <%=rs.getDate("registered_time")+" "+rs.getTime("registered_time") %></p>
               <p>Trading place: <%=rs.getString("trading_place") %></p>
