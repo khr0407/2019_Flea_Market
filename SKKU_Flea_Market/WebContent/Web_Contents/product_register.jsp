@@ -23,11 +23,10 @@ try{
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 } catch(Exception e){ 
-	%>alert("Something went wrong !! Please try again");<%
+	%><script>alert("Something went wrong !! Please try again");</script><%
 } 
 
 %>
-
 <body> 
 <header>
     	<div class="wrapper">
@@ -49,7 +48,7 @@ try{
     </header>
   <div class="content-wrapper">
     <h1>Product Register</h1> <hr>
-    <form action="#" method="post">
+    <form name="register" action=<%="product_register.jsp?next=true&sid="+sid%> method="post">
       <h3>Please select the sell type.</h3>
       <input type="radio" name="sell_type" id="sell_type_flea" value="flea"> Flea
       <input type="radio" name="sell_type" id="sell_type_auction" value="auction"> Auction 
@@ -70,13 +69,13 @@ try{
         <option value="furniture">Furniture</option>
         <option value="others">Others</option>
       </select> </p>
-      <p><label id="price"></label> <input type="text" name="" value=""> </p>
-      <p id="date"><label>Due date</label><input type="datetime-local" value=""> </p>
+      <p><label id="price"></label> <input type="text" name="price" value=""> </p>
+      <p id="date"><label>Due date</label><input type="date" name="due_date"> </p>
       <div class="trading_method">
       <p>How to trade</p>
       <p>
         <input type="radio" name="send_type" value="direct"> Direct deal
-        <input type="text" id="trading_place" placeholder="Enter trading place"> <br>
+        <input type="text" id="trading_place" name="trading_place" placeholder="Enter trading place"> <br>
         <input type="radio" name="send_type" value="delivery"> By delivery
       </p>
       </div>
@@ -88,5 +87,87 @@ try{
       </form>
   </div>
   <script src="./js/product_register.js"></script>
+  <%
+  //validate
+  if(sid == -1) {
+  	%><script>alert("Please sign in first");</script><%
+  	%><script> window.location.href = "<%=request.getHeader("referer")%>" </script><%
+  } else{
+	  String next = request.getParameter("next");
+	  if(next != null){
+		  String sell_type = request.getParameter("sell_type");
+		  String name = request.getParameter("product_title");
+		  String number = request.getParameter("phone_number");
+		  String category = request.getParameter("category");
+		  String price = request.getParameter("price");
+		  String date = request.getParameter("due_date");
+		  String send_type = request.getParameter("send_type");
+		  String place = request.getParameter("trading_place");
+		  String file = request.getParameter("file");
+		  String details = request.getParameter("details");
+		  
+		  out.println("title: "+name+"\n");
+		  out.println("phone number: "+number+"\n");
+		  out.println("category: "+category+"\n");
+		  out.println("price: "+price+"\n");
+		  out.println("due date: "+date+"\n");
+		  out.println("send type: "+send_type+"\n");
+		  out.println("trading place: "+place);
+		  out.println("file: "+file);
+		  out.println("details: "+details);
+		  
+		  if(name.equals("")) {%><script>alert("Please enter the product title");</script><%}
+		  else if (number.equals("")) %><script>alert("Please enter the phone number");</script><%
+		  else if (category.equals("")) %><script>alert("Please select the category");</script><%
+		  else if (price.equals("")) %><script>alert("Please enter the price");</script><%
+		  else if (sell_type.equals("auction") && date.equals("")) %><script>alert("Please enter the due date");</script><%
+		  else if (send_type == null) %><script>alert("Please select send_type");</script><%
+		  else if(send_type.equals("direct") && place.equals("")) %><script>alert("Please enter the trading place");</script><%
+		  else if(file.equals("")) %><script>alert("Please upload product's image file");</script><%
+		  else if (details.equals("")) %><script>alert("Please enter the product details");</script><%
+		  else{
+			  try{
+				  int integer_price = Integer.parseInt(price);
+				  String query = "insert into products values(";
+				  pst = conn.prepareStatement("Select * from products");
+				  rs = pst.executeQuery();
+				  rs.last();
+				  int count=rs.getRow();
+				  
+				  String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+				  String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+				  
+				  query = query+count+",";
+				  query = query+sid +",";
+				  query = query+"'"+name+"',";
+				  query = query+"'"+category +"',";
+				  query = query+price+",";
+				  query = query+inDate+inTime+","; // time
+				  query = query+"'"+place+"',";
+				  query = query+"'"+number+"',";
+				  query = query+"'"+sell_type+"',";
+				  query = query+"'on sale',";
+				  query = query+"0,";
+				  if(sell_type.equals("flea")) query = query+"null,null);";
+				  else{
+					  query = query+"null,";
+					  query = query+"'"+date+" 23:59:59');";  
+				  }
+				  out.println(query);
+				  pst=conn.prepareStatement(query);
+				  pst.executeUpdate();
+				  %><script>alert("Product is registered successfully");</script><%
+			  } catch(NumberFormatException e){
+				  %><script>alert("Please enter the number in the price");</script><%
+			  } catch(Exception e){
+				  %><script>alert("Something went wrong !! Please try again");</script><%
+			  }
+		  }
+		  
+		  %><script> window.location.href = "<%=request.getHeader("referer")%>" </script><%
+		  
+	  }  
+  }
+  %>
 </body>
 </html>
