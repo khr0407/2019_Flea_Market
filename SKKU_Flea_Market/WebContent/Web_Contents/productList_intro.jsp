@@ -7,6 +7,24 @@
   <meta charset="EUC-KR">
   <title>productList_intro</title>
 </head>
+
+<%@ page import ="java.sql.*"%>
+<%
+request.setCharacterEncoding("euc-kr");
+
+//get sid, pid
+int sid = -1;
+String sidString = request.getParameter("sid");
+if(sidString != null) sid = Integer.parseInt(sidString);
+
+//MySQL database connection
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+try{
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+} catch(Exception e){} 
+
+%>
 <body>
   <div id="card_left">
     <div id="card_flea" class="cardContainer inactive">
@@ -42,6 +60,19 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="js/productList_intro.js"></script>
 </body>
+
+<script>
+var card_flea = document.getElementById("card_flea");
+var card_auction = document.getElementById("card_auction");
+
+card_flea.addEventListener('click', () => {
+	window.location = '<%="productList_buyer_flea.jsp?sid="+sid%>';
+});
+
+card_auction.addEventListener('click', () => {
+	window.location = '<%="productList_buyer_auction.jsp?sid="+sid%>';
+});
+</script>
+
 </html>
