@@ -65,9 +65,9 @@ header{
 }
 header h1{margin-left:10%;}
 .menu{float:right; display:flex;}
-.menu li, a{list-style:none; text-decoration:none;line-height:60px; padding: 0 15px; display: block;}
+.menu li, a{list-style:none; text-decoration:none;line-height:60px; padding: 0 15px; display: block; color: #27C9C6;}
 .menu #moveToLogin{position:absolute; right:8%; text-decoration:none;}
-.menu #loginId{position:absolute; right:15%; text-decoration:none;}
+.menu #loginId{position:absolute; right:14%; text-decoration:none; font-weight:bold;}
 
 .image{width:100%; height:100%;}
 </style>

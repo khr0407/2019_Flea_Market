@@ -16,7 +16,7 @@ if(pidString != null) pid = Integer.parseInt(pidString);
 else pid=1;
 
 //MySQL database connection
-ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null; String sid_seller = null, sid_buyer=sid+"";
 try{
 	Class.forName("com.mysql.cj.jdbc.Driver"); 
 	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
@@ -24,10 +24,10 @@ try{
 	pst = conn.prepareStatement("Select * from products where pid="+pid+" and type='auction'");
 	rs = pst.executeQuery();
 	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
-	
+	sid_seller=rs.getString("sid");
 	// 조회수 올리기
-	//pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid="+pid);
-	//pst.executeUpdate();
+	pst = conn.prepareStatement("update products set hits="+(rs.getInt("hits")+1)+" where pid="+pid);
+	pst.executeUpdate();
 } catch(Exception e){ 
 	%>alert("Something went wrong !! Please try again");<%
 } 
@@ -85,7 +85,7 @@ function checkBidPrice(obj){
 			<div class="product_basic_info">
               <span id="views"><%=rs.getInt("hits") %> views</span>
     		  <h2><%=rs.getString("name") %></h2>
-              <h3>Due time: <%=rs.getTimestamp("auction_time") %></h3>
+              <h3>Due time: <%=rs.getDate("auction_time")+" 23:59:59"%></h3>
               <h3><span id="currentPrice"><%=rs.getInt("price") %></span>&#8361; </h3>
               <p>Seller: <%=rs.getString("sid") %></p>
               <p>Phone number: <%=rs.getString("contacts") %></p>
@@ -139,15 +139,35 @@ if(bidPrice != null){
 		if(price <= rs.getInt("price")){
 			%> <script>alert("Bid failed. Please enter higher price than current price.")</script><%
 		} else{
+			String query = null; Date d = rs.getDate("auction_time");
 			%> <script>alert("Bid success!")</script><%
+			// check if there is old data
+			query = "select * from deals where pid="+pid+" and sid_seller="+sid_seller;
+			pst = conn.prepareStatement(query);pst.executeQuery();
+			rs = pst.executeQuery();rs.last();
+			int count=rs.getRow();
+			
+			if(count > 0){
+				query = "update deals set status='lose' where pid="+pid+" and sid_seller="+sid_seller+" and status='bidding'";
+				pst = conn.prepareStatement(query); pst.executeUpdate();
+			}
+			
+			//update product price
 			pst = conn.prepareStatement("update products set price="+price+" where pid="+pid);
 			pst.executeUpdate();
-			%><script> window.location.href = "product_info_auction.jsp?sid="+sid+"&pid="+pid;</script><%
+			%><script> window.location.href = "<%=request.getHeader("referer")%>";</script><%
+			
+			// insert new deal
+			inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+			inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+			query = "insert into deals values("+pid+","+sid_seller+","+sid_buyer+","+inDate+inTime+","+price+",'auction','bidding','"+d+"')";
+			pst = conn.prepareStatement(query); pst.executeUpdate();
+			
 		}
 	} catch(Exception e){
 		%> <script>
 		alert("Bid failed. Please make sure the input is correct.");
-		window.location.href = "product_info_auction.jsp?sid="+sid+"&pid="+pid;
+		window.location.href = "<%=request.getHeader("referer")%>";
 		</script><%
 	}	
 }
