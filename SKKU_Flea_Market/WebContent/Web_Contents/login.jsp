@@ -25,7 +25,7 @@ String register = request.getParameter("signup");
 ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
 try{
 	Class.forName("com.mysql.cj.jdbc.Driver");
-	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","1234");
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 } catch(Exception e){ 
 	%><script>alert("Something went wrong !! Please try again");</script><%
 } 

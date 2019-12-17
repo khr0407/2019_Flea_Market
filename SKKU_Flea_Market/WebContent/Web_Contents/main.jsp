@@ -33,7 +33,7 @@ if(sid!=-1){
 	if(classString.equals("buyer")){
 		%><script>window.location.href = '<%="productlist_intro_temp.jsp?sid="+sid%>';</script> <%
 	} else if(classString.equals("seller")){
-		%><script>window.location.href = '<%="productList_seller.jsp?sid="+sid%>';</script> <%
+		%><script>window.location.href = '<%="seller_intro.jsp?sid="+sid%>';</script> <%
 	} else if (classString.equals("admin")){
 		%><script>window.location.href = '<%="admin.jsp?sid="+sid%>';</script> <%
 	}
