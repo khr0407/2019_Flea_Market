@@ -13,27 +13,19 @@
 <%@ page import ="java.sql.*" %>
 <%
 	request.setCharacterEncoding("euc-kr");
-	String sid = request.getParameter("sid"); 
-	String query = "select * from 2019_flea_market.deals where sid_seller='"+sid+"' and status<>'lose'";
+	String sidString = request.getParameter("sid"); 
+	String query = "select * from 2019_flea_market.deals where sid_seller='"+sidString+"' and status<>'lose'";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	PreparedStatement pst = conn.prepareStatement(query);
 	ResultSet rs = pst.executeQuery();
+	
+	//get sid, pid
+	int sid = -1;
+	if(sidString != null) sid = Integer.parseInt(sidString);
+
 %>
 
-
-<header>
-    	<div class="wrapper">
-    		<h1>Gingko Market</h1>
-    			<ul class="menu">
-    				<li><a href="#">Home</a></li>
-    				<li><a href="#">About</a></li>
-    				<li><a href="#">Board</a></li>
-    				<li><a href="#">Reference</a></li>
-    				<li><a href="#">Contact</a></li>
-    			</ul>
-    	</div>
-    </header>
  	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">

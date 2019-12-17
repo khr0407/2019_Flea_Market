@@ -41,11 +41,17 @@ try{
     	<div class="wrapper">
     		<h1>Gingko Market</h1>
     			<ul class="menu">
-    				<li><a href="#">Home</a></li>
-    				<li><a href="#">About</a></li>
-    				<li><a href="#">Board</a></li>
-    				<li><a href="#">Reference</a></li>
-    				<li><a href="#">Contact</a></li>
+    				<li><a href="<%="main.jsp?sid="+sid%>">Home</a></li>
+    				<li><a href="<%="productList_intro.jsp?sid="+sid%>">Products for buyer</a></li>
+    				<li><a href="<%="productList_intro.jsp?sid="+sid%>">Products for seller</a></li>
+    				<li><a href="<%="product_info_flea.jsp?sid="+sid %>">Flea</a></li>
+    				<li><a href="<%="product_info_auction.jsp?sid="+sid %>">Auction</a></li>
+    				<li><a href="<%="product_register.jsp?sid="+sid %>">Product register</a></li>
+    				<%if(sid != -1){ %>
+    				<li id=loginId><%=sid %></li>
+    				<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
+    				<%} else { %>
+    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
     			</ul>
     	</div>
     </header>

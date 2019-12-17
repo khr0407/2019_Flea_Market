@@ -72,18 +72,15 @@ img{
   color: #27C9C6;
 }
 
+
 /*menu bar*/
 header{
-	height:80px; background-color:#36304a; border: 1px solid #36304a;
+	height:10%; background-color:white;
 	width:100%; z-index:9999; top:0; left:0; padding:10px;
-	color:white;
+	color:#27C9C6; display:flex;
 }
-
-.wrapper{width:1170px; margin:0 auto; display:flex;}
-.menu li{float:left;list-style:none;}
-.menu a{
-	text-decoration:none;line-height:60px; color:black; padding: 0 15px; display: block;
-	color:white;
-}
-.menu #moveToLogin{position:absolute; right:50px; color:white;}
-.menu #loginId{position:absolute; right:140px; color:#27C9C6; text-decoration:none;line-height:60px; display: block; font-size:15px;}
+header h1{margin-left:10%;}
+.menu{float:right; display:flex;}
+.menu li, a{list-style:none; text-decoration:none;line-height:60px; padding: 0 15px; display: block;}
+.menu #moveToLogin{position:absolute; right:8%; text-decoration:none;}
+.menu #loginId{position:absolute; right:15%; text-decoration:none;}
