@@ -109,8 +109,12 @@ function checkBidPrice(obj){
               <form action=<%="product_info_auction.jsp?sid="+sid+"&pid="+pid %> method="post">
               <input type="text" id="bidPrice" name="bidPrice" placeholder="Enter bidding price" onchange="checkBidPrice(this)">&#8361; <span id="bidAlertText"></span>
               <br>
+<% 
+if(sid != -1){
+%>
               <button type="submit" id="bid">Bid</button>
               <button type="button" id="wishlist" onclick="addToWishlist();">Add to wishlist</button>
+              <%} %>
               </form>
     		</div>
     		</div>

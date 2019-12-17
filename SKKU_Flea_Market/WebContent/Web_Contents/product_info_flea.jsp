@@ -89,8 +89,13 @@ function addToWishlist(){
               <p>Trading place: <%=rs.getString("trading_place") %></p>
     		  <h3><%=rs.getInt("price") %> &#8361;</h3>
               <hr>
+              
+<% 
+if(sid != -1){
+%>
               <button type="button" onclick="addToWishlist();">Add to wishlist</button>
               <button type="button" onclick="buyNow();">Buy now</button>
+              <%} %>
     				</div>
     			</div>
 <hr>
