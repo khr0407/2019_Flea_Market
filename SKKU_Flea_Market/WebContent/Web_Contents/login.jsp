@@ -15,11 +15,17 @@ String pwdString = request.getParameter("password");
 String classString = request.getParameter("signin_class");
 String check = request.getParameter("login");
 
+String sidRegister = request.getParameter("studentIDR");
+String pwdRegister = request.getParameter("passwordR");
+String nmRegister = request.getParameter("nameR");
+String classRegister = request.getParameter("signup_class");
+String register = request.getParameter("signup");
+
 //MySQL database connection
 ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
 try{
 	Class.forName("com.mysql.cj.jdbc.Driver");
-	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","1234");
 } catch(Exception e){ 
 	%><script>alert("Something went wrong !! Please try again");</script><%
 } 
@@ -33,23 +39,27 @@ if(check != null && check.equals("true")){
 	}catch(Exception e){}
 }
 
+if (register != null && register.equals("true")) {
+	try {
+		pst = conn.prepareStatement("Select * from users where sid=" + sidRegister + " and class='" + classRegister + "'");
+		rs = pst.executeQuery();
+		if (rs.next()) { %> <script> alert("중복되는 아이디 입니다.") </script> <% }
+		else {
+			pst = conn.prepareStatement("Insert into users values ("+sidRegister+",'"+pwdRegister+"','"+nmRegister+"','"+classRegister+"',0)");
+			pst.executeUpdate();
+			%> <script> alert("회원가입을 완료했습니다.") </script> <%
+		}
+		
+	} catch (Exception e) { }
+}
+
 %>
 
 <script>
+
 function validate_signin(){
 	var studentID = document.forms['signin']['studentID'].value;
 	var password = document.forms['signin']['password'].value;
-	var radiobutton = document.forms['signin']['signin_class'];
-	var signin_class = ""
-
-	// radiobutton 값 가져오기
-	var radiobutton = document.getElementById("class_radiobutton");
-	var radiobutton_elements = radiobutton.getElementsByTagName('input');
-	for(var i=0; i<3; i++)
-	{
-		if(radiobutton_elements[i].checked)
-			signin_class = radiobutton_elements[i].value;
-	}
 
 	// 빈칸 확인
 	if(studentID==""){
@@ -57,26 +67,49 @@ function validate_signin(){
 	}
 	else if(password=="")
 		alert("Please enter your password!");
+	else {
+		return true;
+	}
+	return false;
 }
+
+function validate_signup(){
+	var studentID = document.forms['signup']['studentIDR'].value;
+	var password = document.forms['signup']['passwordR'].value;
+	var name = document.forms['signup']['nameR'].value;
+	
+	// 빈칸 확인
+	if(studentID=="")
+		alert("Please enter your Student ID!");
+	else if(password=="")
+		alert("Please enter your password!");
+	else if(name=="")
+		alert("Please enter your name!");
+	else if(signup_class=="")
+		alert("Please check your user type!");
+	else
+	{
+		// 데이터베이스 정보와 비교
+		return true;
+	}
+	return false;
+}
+
 </script>
 
 <body>
   <div class="container" id="container">
   	<div class="form-container sign-up-container">
-  		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
+  		<form name="signup" method="post" action="login.jsp?signup=true" onsubmit="return validate_signup()">
   			<h1>Registration</h1>
         <br><br><br>
-  			<input type="text" id="signup_ID" name="studentID" placeholder="Student ID" />
-        <div id="dup">
-          <button id="dup_button">Check</button>
-          <span id="dup_text"> Please check ID availability.</span>
-        </div>
-  			<input type="password" name="password" placeholder="Password" />
-        <input type="text" name="name" placeholder="Name" />
+  			<input type="text" id="signup_ID" name="studentIDR" placeholder="Student ID" />
+  			<input type="password" name="passwordR" placeholder="Password" />
+        <input type="text" name="nameR" placeholder="Name" />
         <div id="class_checkbox">
-          <input type="checkbox" id="signup_buyer" name="signup_class" value="buyer">
+          <input type="radio" id="signup_buyer" name="signup_class" value="buyer" checked>
           <label for="signup_buyer">Buyer</label>
-          <input type="checkbox" id="signup_seller" name="signup_class" value="seller">
+          <input type="radio" id="signup_seller" name="signup_class" value="seller">
           <label for="signup_seller">Seller</label>
         </div>
         <br>
