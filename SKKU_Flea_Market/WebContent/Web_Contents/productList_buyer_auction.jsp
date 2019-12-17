@@ -259,8 +259,9 @@ if(sidString != null) sid = Integer.parseInt(sidString);
 		});
 		
 		function showItem(e){
-			var pid = e.cells[7].textContent;									
-			window.location = 'product_info_auction.jsp?pid='+pid;
+			var type = e.cells[2].textContent;
+			var pid = e.cells[7].textContent;
+			window.location = "<%="product_info_auction.jsp?sid="+sid%>&pid="+pid;
 		}
 
 	</script>

@@ -65,7 +65,7 @@
 	//get sid, pid
 	request.setCharacterEncoding("euc-kr");
 	int sid = -1, pid = -1;
-	String sidString = request.getParameter("sid"); String pidString = request.getParameter("pid");
+	String sidString = request.getParameter("sid"); 
 	if(sidString != null) sid = Integer.parseInt(sidString);
 %>
 								
@@ -256,8 +256,9 @@
 		});
 		
 		function showItem(e){
-			var pid = e.cells[7].textContent;									
-			window.location = 'product_info_flea.jsp?pid='+pid;
+			var pid = e.cells[7].textContent;	
+			window.location = "<%="product_info_flea.jsp?sid="+sid%>&pid="+pid;
+			//window.location = 'product_info_flea.jsp?pid='+pid;
 		}
 
 	</script>
