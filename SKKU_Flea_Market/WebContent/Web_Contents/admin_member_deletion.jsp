@@ -14,7 +14,7 @@
 	String sid = request.getParameter("sid");
 	String query="delete from 2019_flea_market.users where sid='"+sid+"'";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	PreparedStatement pst = conn.prepareStatement(query);
 	int n = pst.executeUpdate();
 

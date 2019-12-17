@@ -7,17 +7,38 @@
 <title>Main Page</title>
 </head>
 
-<% 
+<%@ page import ="java.sql.*"%>
+<%
 request.setCharacterEncoding("euc-kr");
 
 //get sid, pid
-int sid = -1, pid = -1;
-String sidString = request.getParameter("sid"); String 
-pidString = request.getParameter("pid");
+int sid = -1;
+String sidString = request.getParameter("sid"); String pidString = request.getParameter("pid");
 
-if(sidString != null) sid = Integer.parseInt(sidString); 
+if(sidString != null) sid = Integer.parseInt(sidString);
 
-if(pidString != null) pid = Integer.parseInt(pidString);
+//MySQL database connection
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+try{
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
+} catch(Exception e){}
+
+if(sid!=-1){
+	pst = conn.prepareStatement("Select * from users where sid="+sid);
+	rs = pst.executeQuery();
+	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
+	String classString = rs.getString("class");
+	
+	if(classString.equals("buyer")){
+		%><script>window.location.href = '<%="productlist_intro_temp.jsp?sid="+sid%>';</script> <%
+	} else if(classString.equals("seller")){
+		%><script>window.location.href = '<%="productList_seller.jsp?sid="+sid%>';</script> <%
+	} else if (classString.equals("admin")){
+		%><script>window.location.href = '<%="admin.jsp?sid="+sid%>';</script> <%
+	}
+}
+
 %>
 
 <style>
@@ -39,7 +60,19 @@ body{
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
+	text-align: center;
 }
+
+.welcome{
+	positin: absolute;
+	margin-top: 150px;
+	font-size: 5rem;
+	color:white;
+	font-weight: bold;
+}
+.welcome #welcome{float:left; margin-left:100px;}
+.welcome #market{font-size:8rem;}
+.welcome #login{text-decoration:none; color:white; border: 1px solid white; font-size:2.5rem;}
 
 /*menu bar*/
 header{
@@ -58,24 +91,11 @@ header{
 .menu #loginId{position:absolute; right:140px; color:#27C9C6; text-decoration:none;line-height:60px; display: block; font-size:15px;}
 </style>
 
-<body>
-	<header>
-    	<div class="wrapper">
-    		<h1>Gingko Market</h1>
-    			<ul class="menu">
-    				<li><a href="<%="main.jsp?sid="+sid%>">Home</a></li>
-    				<li><a href="<%="productList_intro.jsp?sid="+sid%>">Products for buyer</a></li>
-    				<li><a href="productList_seller.jsp">Products for seller</a></li>
-    				<li><a href="<%="product_info_flea.jsp?sid="+sid %>">Flea</a></li>
-    				<li><a href="<%="product_info_auction.jsp?sid="+sid %>">Auction</a></li>
-    				<li><a href="<%="product_register.jsp?sid="+sid %>">Product register</a></li>
-    				<%if(sid != -1){ %>
-    				<li id=loginId><%=sid %></li>
-    				<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
-    				<%} else { %>
-    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
-    			</ul>
-    	</div>
-    </header>
+<body>    
+    <div class="welcome">
+    	<span id ="welcome">Welcome to</span><br>
+    	<span id="market">GINGKO MARKET</span><br>
+    	<a href="login.jsp" id="login" >Sign In/Sign Up</a>
+    </div>
 </body>
 </html>

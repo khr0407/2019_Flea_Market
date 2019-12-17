@@ -18,7 +18,7 @@
 	String userdelete = request.getParameter("delete");
 	String query="select * from 2019_flea_market.users";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 
 	if(userclass!=null) // clicked button
 	{

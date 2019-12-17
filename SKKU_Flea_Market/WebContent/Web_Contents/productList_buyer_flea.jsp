@@ -19,7 +19,7 @@
 	String price_upper = request.getParameter("price_upper");
 	String query="select * from 2019_flea_market.products where type='Flea' and status='On Sale'";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	
 	if(category!=null) // clicked button
 	{
@@ -61,20 +61,27 @@
 	
 	PreparedStatement pst = conn.prepareStatement(query);
 	ResultSet rs = pst.executeQuery();
+	
+	//get sid, pid
+	request.setCharacterEncoding("euc-kr");
+	int sid = -1, pid = -1;
+	String sidString = request.getParameter("sid"); String pidString = request.getParameter("pid");
+	if(sidString != null) sid = Integer.parseInt(sidString);
 %>
 								
 <header>
-    	<div class="wrapper">
-    		<h1>Gingko Market</h1>
-    			<ul class="menu">
-    				<li><a href="#">Home</a></li>
-    				<li><a href="#">About</a></li>
-    				<li><a href="#">Board</a></li>
-    				<li><a href="#">Reference</a></li>
-    				<li><a href="#">Contact</a></li>
-    			</ul>
-    	</div>
-    </header>
+	<h1>Gingko Market</h1>
+	<ul class="menu">
+    	<li><a href="<%="productlist_intro_temp.jsp?sid="+sid%>">Buy products</a></li>
+    	<li><li><a href="<%="wishlist.jsp?sid="+sid%>">Wish list</a></li>
+    	<li><li><a href="<%="shoppingList.jsp?sid="+sid%>">Shopping list</a></li>
+    	<%if(sid != -1){ %>
+    		<li id=loginId><%=sid %></li>
+    		<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
+    	<%} else { %>
+    		<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
+    </ul>
+</header>
  	<div class="limiter">
 		<div class="container-table100">
 			<div id="search_container">

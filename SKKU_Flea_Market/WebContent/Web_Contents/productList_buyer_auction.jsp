@@ -16,23 +16,11 @@ request.setCharacterEncoding("euc-kr");
 //get sid, pid
 int sid = -1;
 String sidString = request.getParameter("sid"); String pidString = request.getParameter("pid");
-if(sidString != null) sid = Integer.parseInt(sidString);
-
-
-//MySQL database connection
-ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
-try{
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
-} catch(Exception e){ 
-	%>alert("Something went wrong !! Please try again");<%
-} 
+if(sidString != null) sid = Integer.parseInt(sidString); 
 
 %>
 
 <body>
-
-<%@ page import ="java.sql.*" %>
 <%
 	request.setCharacterEncoding("euc-kr");
 	String category = request.getParameter("category");
@@ -41,7 +29,7 @@ try{
 	String price_upper = request.getParameter("price_upper");
 	String query="select * from 2019_flea_market.products where type='Auction' and status='On Sale'";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	
 	if(category!=null) // clicked button
 	{
@@ -85,23 +73,18 @@ try{
 %>
 
 <header>
-    	<div class="wrapper">
-    		<h1>Gingko Market</h1>
-    			<ul class="menu">
-    				<li><a href="<%="main.jsp?sid="+sid%>">Home</a></li>
-    				<li><a href="<%="productList_intro.jsp?sid="+sid%>">Products for buyer</a></li>
-    				<li><a href="productList_seller.jsp">Products for seller</a></li>
-    				<li><a href="<%="product_info_flea.jsp?sid="+sid %>">Flea</a></li>
-    				<li><a href="<%="product_info_auction.jsp?sid="+sid %>">Auction</a></li>
-    				<li><a href="<%="product_register.jsp?sid="+sid %>">Product register</a></li>
-    				<%if(sid != -1){ %>
-    				<li id=loginId><%=sid %></li>
-    				<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
-    				<%} else { %>
-    				<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
-    			</ul>
-    	</div>
-    </header>
+	<h1>Gingko Market</h1>
+	<ul class="menu">
+    	<li><a href="<%="productlist_intro_temp.jsp?sid="+sid%>">Buy products</a></li>
+    	<li><li><a href="<%="wishlist.jsp?sid="+sid%>">Wish list</a></li>
+    	<li><li><a href="<%="shoppingList.jsp?sid="+sid%>">Shopping list</a></li>
+    	<%if(sid != -1){ %>
+    		<li id=loginId><%=sid %></li>
+    		<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
+    	<%} else { %>
+    		<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
+    </ul>
+</header>
  	<div class="limiter">
 		<div class="container-table100">
 			<div id="search_container">

@@ -13,20 +13,24 @@
 <%@ page import ="java.sql.*" %>
 <%
 	request.setCharacterEncoding("euc-kr");
-	String sid = request.getParameter("sid");
-	String query="select * from 2019_flea_market.deals where sid_buyer='"+sid+"' and status<>'lose'";
+	String sidString = request.getParameter("sid");
+	String query="select * from 2019_flea_market.deals where sid_buyer='"+sidString+"' and status<>'lose'";
 	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
-	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
 	PreparedStatement pst = conn.prepareStatement(query);
 	ResultSet rs = pst.executeQuery();
-%>
 	
+	//get sid, pid
+		int sid = -1;
+		if(sidString != null) sid = Integer.parseInt(sidString);
+%>
+
 
 <div class="wrap cf">
   <h1 class="projTitle">Shopping List</h1>
   <div class="heading cf" id="heading">
     <h1>My shopping list</h1>
-    <a href="productList_intro.jsp" class="continue">Continue Shopping</a>
+    <a href="<%="productlist_intro_temp.jsp?sid="+sid%>" class="continue">Continue Shopping</a>
   </div>
   <div class="cart">
     <ul class="cartWrap">
