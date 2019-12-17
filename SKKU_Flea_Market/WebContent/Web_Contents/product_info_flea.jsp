@@ -18,7 +18,7 @@ if(pidString != null) pid = Integer.parseInt(pidString);
 else pid=0;
 
 //MySQL database connection
-ResultSet rs = null; PreparedStatement pst = null; Connection conn= null;
+ResultSet rs = null; PreparedStatement pst = null; Connection conn= null; String sid_seller = null;
 try{
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","jyj980815#");
@@ -26,6 +26,7 @@ try{
 	pst = conn.prepareStatement("Select * from products where pid="+pid+" and type='flea'");
 	rs = pst.executeQuery();
 	if (!rs.next()) %> <script>alert("Database connection failed. Please try again.")</script> <%
+	sid_seller=rs.getString("sid");
 } catch(Exception e){ 
 	%>alert("Something went wrong !! Please try again");<%
 } 
@@ -38,7 +39,18 @@ pst.executeUpdate();
 <script>
 function buyNow(){
 	<% if(sid==-1) { %> alert("Please sign in first"); <%}
-	else {%> alert("This product is added to shopping list") <%}%>
+	else {
+		String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+		String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+		try{
+			String query = "insert into deals values ("+pid+","+sid_seller+","+sid+",'"+inDate+inTime+"',"+rs.getInt("price")+",'flea','On sale',null)";
+			pst = conn.prepareStatement(query);
+			pst.executeUpdate();
+			%> alert("The product is added to shopping list."); <%
+		} catch(Exception e){
+			%> alert("This product is already in the shopping list.") <%
+		}
+	}%>
 }
 function addToWishlist(){
 	<% if(sid==-1) { %> alert("Please sign in first");<%}
@@ -56,19 +68,6 @@ function addToWishlist(){
 	%>
 }
 </script>
-<header>
-	<h1>Gingko Market</h1>
-	<ul class="menu">
-    	<li><a href="<%="productlist_intro_temp.jsp?sid="+sid%>">Buy products</a></li>
-    	<li><li><a href="<%="wishlist.jsp?sid="+sid%>">Wish list</a></li>
-    	<li><li><a href="<%="shoppingList.jsp?sid="+sid%>">Shopping list</a></li>
-    	<%if(sid != -1){ %>
-    		<li id=loginId><%=sid %></li>
-    		<li id="moveToLogin"><a href="main.jsp">Log out</a></li>
-    	<%} else { %>
-    		<li id="moveToLogin"><a href="login.jsp">Sign In/Sign Up</a></li> <%} %>
-    </ul>
-</header>
 
     <div class="container-fluid">
         <div class="content-wrapper">
@@ -89,8 +88,13 @@ function addToWishlist(){
               <p>Trading place: <%=rs.getString("trading_place") %></p>
     		  <h3><%=rs.getInt("price") %> &#8361;</h3>
               <hr>
+              
+<% 
+if(sid != -1){
+%>
               <button type="button" onclick="addToWishlist();">Add to wishlist</button>
               <button type="button" onclick="buyNow();">Buy now</button>
+              <%} %>
     				</div>
     			</div>
 <hr>

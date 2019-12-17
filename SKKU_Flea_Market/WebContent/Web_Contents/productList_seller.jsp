@@ -95,8 +95,9 @@
 	</div>
   	<script>
 		function showItem(e){
+			var type = e.cells[2].textContent;
 			var pid = e.cells[8].textContent;									
-			window.location = 'product_info_flea.jsp?pid='+pid;
+			if(type=="Auction") window.location = 'product_info_flea.jsp?pid='+pid;
 		}
   	</script>
 </body>
