@@ -27,6 +27,20 @@ try{
 
 %>
 <body>
+
+
+<%@ page import ="java.sql.*" %>
+<%
+	request.setCharacterEncoding("euc-kr");
+	String sid = request.getParameter("sid"); 
+	String query = "select * from 2019_flea_market.deals where sid_seller='"+sid+"' and status<>'lose'";
+	Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL database connection
+	Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/2019_flea_market?characterEncoding=UTF-8&serverTimezone=UTC","root","0000");
+	PreparedStatement pst = conn.prepareStatement(query);
+	ResultSet rs = pst.executeQuery();
+%>
+
+
 <header>
     	<div class="wrapper">
     		<h1>Gingko Market</h1>
@@ -59,66 +73,64 @@ try{
 								<th class="column5">Status</th>
 								<th class="column6">Buyer</th>
 								<th class="column7">History</th>
-                <th class="column8">Wishlist</th>
+                				<th class="column8">Wishlist</th>
 							</tr>
 						</thead>
 						<tbody>
-								<tr>
-									<td class="column1">2019-11-29 01:22</td>
-									<td class="column2">iPhone X 64Gb Grey</td>
-									<td class="column3">auction</td>
-									<td class="column4">\99900</td>
-									<td class="column5">Bidding</td>
-									<td class="column6">Hera</td>
-									<td class="column7">Hera: \99000 <br>Yujin: \88000</td>
-                  <td class="column8">1</td>
-								</tr>
-								<tr>
-                  <td class="column1">2019-11-29 01:22</td>
-									<td class="column2">iPhone X 64Gb Grey</td>
-									<td class="column3">flea market</td>
-									<td class="column4">\99900</td>
-									<td class="column5">Purchased</td>
-									<td class="column6">Hera</td>
-									<td class="column7">Hera: \99000</td>
-                  <td class="column8">1</td>
-								</tr>
-								<tr>
-                  <td class="column1">2019-11-29 01:22</td>
-									<td class="column2">iPhone X 64Gb Grey</td>
-									<td class="column3">flea market</td>
-									<td class="column4">\99900</td>
-									<td class="column5">Purchased</td>
-									<td class="column6">Hera</td>
-									<td class="column7">Hera: \99000</td>
-                  <td class="column8">1</td>
-								</tr>
-                <tr>
-                  <td class="column1">2019-11-29 01:22</td>
-                  <td class="column2">iPhone X 64Gb Grey</td>
-                  <td class="column3">flea market</td>
-                  <td class="column4">\99900</td>
-                  <td class="column5">Purchased</td>
-                  <td class="column6">Hera</td>
-                  <td class="column7">Hera: \99000</td>
-                  <td class="column8">1</td>
-                </tr>
-                <tr>
-                  <td class="column1">2019-11-29 01:22</td>
-                  <td class="column2">iPhone X 64Gb Grey</td>
-                  <td class="column3">flea market</td>
-                  <td class="column4">\99900</td>
-                  <td class="column5">Purchased</td>
-                  <td class="column6">Hera</td>
-                  <td class="column7">Hera: \99000</td>
-                  <td class="column8">1</td>
-                </tr>
+						<%
+							while(rs.next())
+							{
+								String pid = rs.getString("pid");
+								String sid_buyer = rs.getString("sid_buyer");
+								String query1 = "select * from 2019_flea_market.products where pid='"+pid+"'";
+								PreparedStatement p1 = conn.prepareStatement(query1);
+								ResultSet rs1 = p1.executeQuery();
+								rs1.next();
+								
+								String query2 = "select * from 2019_flea_market.deals where pid='"+pid+"'";
+								PreparedStatement p2 = conn.prepareStatement(query2);
+								ResultSet rs2 = p2.executeQuery();
+								
+								String query3 = "select count(*) from 2019_flea_market.wish_list where pid='"+pid+"'";
+								PreparedStatement p3 = conn.prepareStatement(query3);
+								ResultSet rs3 = p3.executeQuery();
+								rs3.next();
+						%>
+								<tr class="item" onclick="showItem(this)">
+									<td class="column1"><%=rs1.getString("registered_date") %></td>
+									<td class="column2"><%=rs1.getString("name") %></td>
+									<td class="column3"><%=rs.getString("type") %></td>
+									<td class="column4"><%=rs.getString("price") %></td>
+									<td class="column5"><%=rs.getString("status") %></td>
+									<td class="column6"><%=rs.getString("sid_buyer") %></td>
+									<td class="column7">
+									<%
+										while(rs2.next())
+										{
+									%>
+											<%=rs2.getString("sid_buyer") %>:&nbsp;<%=rs2.getString("price") %>&#8361;
+											<br>
+									<%
+										}
+									 %>
+									 </td>
+									<td class="column8"><%=rs3.getInt(1) %></td>
+									<td class="pid" style="display:none;"><%=pid%></td>
+								</tr>				
+						<%
+							}
+						%>								
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-  <script type="text/javascript" src="js/productList_seller.js"></script>
+  	<script>
+		function showItem(e){
+			var pid = e.cells[8].textContent;									
+			window.location = 'product_info_flea.jsp?pid='+pid;
+		}
+  	</script>
 </body>
 </html>

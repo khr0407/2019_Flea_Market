@@ -61,7 +61,6 @@ function validate_signin(){
 </script>
 
 <body>
-    
   <div class="container" id="container">
   	<div class="form-container sign-up-container">
   		<form name="signup" method="post" action="#" onsubmit="return validate_signup()">
